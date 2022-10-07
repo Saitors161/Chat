@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+      http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.1.xsd">
+
+    <changeSet id="1.0.0" author="mikhail.tsirdava">
+        <createTable tableName="users_chat" schemaName="chat_app">
+            <column name="name" type="VARCHAR(100)">
+                <constraints primaryKey="true" unique="true"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1.0.1" author="mikhail.tsirdava">
+        <createTable tableName="messages" schemaName="chat_app">
+            <column name="id" type="INT" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="text" type="VARCHAR(500)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="date_of_created" type="TIMESTAMP">
+                <constraints nullable="false"/>
+            </column>
+            <column name="user_chat_name" type="VARCHAR(120)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet id="1.0.2" author="mikhail.tsirdava">
+        <addForeignKeyConstraint baseTableName="messages" baseColumnNames="user_chat_name" constraintName="fkeyUser"
+                                 referencedTableName="users_chat"
+                                 referencedColumnNames="name"/>
+
+    </changeSet>
+
+</databaseChangeLog>
